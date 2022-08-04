@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Provider } from "mobx-react";
-import MainStore from "./stores/MainStore";
+import MainStore from "./core/stores/MainStore";
 import HomePage from "./pages/HomePage";
+import { gql, useQuery } from "@apollo/client";
 
 interface IStore {
   MainStore: MainStore;
