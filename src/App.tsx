@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Provider } from "mobx-react";
+import MainStore from "./stores/MainStore";
+import HomePage from "./pages/HomePage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IStore {
+  MainStore: MainStore;
+}
+
+interface IProps {}
+
+class App extends React.Component<IProps> {
+  private stores: IStore = null;
+
+  constructor(props: IProps) {
+    super(props);
+
+    this.stores = {
+      MainStore: new MainStore(),
+    };
+  }
+
+  render() {
+    return (
+      <Provider {...this.stores}>
+        <HomePage />
+      </Provider>
+    );
+  }
 }
 
 export default App;
