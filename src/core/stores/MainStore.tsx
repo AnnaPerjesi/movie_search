@@ -2,7 +2,7 @@ import { flow, makeAutoObservable, runInAction, toJS } from "mobx";
 import MainService from "../services/MainService";
 
 export interface IMovie {
-  id: number;
+  id: string;
   name: string;
   overview: string;
   releaseDate: string | Date;
@@ -15,6 +15,7 @@ class MainStore {
   isLoading: boolean = true;
 
   query: string = "Love";
+  selectedMoveId: string = "";
 
   constructor() {
     this.MainService = new MainService();
@@ -47,6 +48,21 @@ class MainStore {
   onChangeInput(value: string) {
     console.log(value);
     this.query = value;
+  }
+
+  setSelectedMovieId(id: string) {
+    this.selectedMoveId = id;
+  }
+
+  get getSelectedMovie(): IMovie {
+    if (this.selectedMoveId) {
+      console.log(
+        "movie",
+        this.movies.find((movie) => movie.id === this.selectedMoveId)
+      );
+      return this.movies.find((movie) => movie.id === this.selectedMoveId);
+    }
+    return null;
   }
 }
 export default MainStore;

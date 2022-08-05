@@ -1,4 +1,12 @@
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import {
+  Backdrop,
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+} from "@mui/material";
 import { inject, observer } from "mobx-react";
 import React from "react";
 import Movies from "../components/movies/Movies";
@@ -31,6 +39,30 @@ class HomePage extends React.Component<IProps> {
 
         <div>
           <Movies />
+          <Dialog
+            open={MainStore.getSelectedMovie != null}
+            onClose={() => MainStore.setSelectedMovieId(null)}
+            className="movieDialog"
+          >
+            <DialogTitle sx={{ m: 0, p: 2 }}>
+              <div>{MainStore.getSelectedMovie?.name}</div>
+              <IconButton
+                aria-label="close"
+                onClick={() => MainStore.setSelectedMovieId(null)}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <Close />
+              </IconButton>
+            </DialogTitle>
+            <DialogContent dividers>
+              {MainStore.getSelectedMovie?.overview}
+            </DialogContent>
+          </Dialog>
         </div>
 
         <h4>

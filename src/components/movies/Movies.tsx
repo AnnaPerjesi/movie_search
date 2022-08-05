@@ -24,6 +24,12 @@ class Movies extends React.Component<IProps> {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
+            onCellClick={(params) => {
+              if (params.field === "name") {
+                console.log(toJS(params));
+                MainStore.setSelectedMovieId(params.id as any);
+              }
+            }}
           />
         </div>
       </div>
