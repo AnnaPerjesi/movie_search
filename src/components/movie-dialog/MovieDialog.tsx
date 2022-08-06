@@ -12,6 +12,8 @@ import { inject, observer } from "mobx-react";
 import React from "react";
 import CustomChip from "../../controls/custom-chip/CustomChip";
 import MainStore from "../../core/stores/MainStore";
+import Cast from "./cast/Cast";
+import Genres from "./genres/Genres";
 
 interface IProps {
   MainStore?: MainStore;
@@ -50,78 +52,68 @@ class MovieDialog extends React.Component<IProps> {
             <Grid container spacing={1}>
               <Grid container item spacing={2}>
                 <Grid xs={4}>
-                  <img
-                    src={`${MainStore.selectedMovie.poster.small}`}
-                    alt="movie poster"
-                  />
+                  <div className="moviePoster">
+                    <img
+                      src={`${MainStore.selectedMovie.poster.small}`}
+                      alt="movie poster"
+                    />
+                  </div>
                 </Grid>
 
                 <Grid xs={4}>
-                  Details
-                  {MainStore.selectedMovie.genres?.map((genre) => {
-                    const colorIndex = Math.floor(Math.random() * 6);
+                  <Genres />
+
+                  <Cast />
+                </Grid>
+
+                <Grid xs={4}>
+                  <div style={{ display: "flex" }}>
+                    <div style={{ marginRight: "12px", marginTop: "12px" }}>
+                      <a
+                        className="customLink"
+                        target="_blank"
+                        href={`https://en.wikipedia.org/wiki/${MainStore.selectedMovie?.name}`}
+                      >
+                        Click here for Wikipedia
+                      </a>
+                    </div>
+
+                    <div style={{ margin: "12px" }}>
+                      <a
+                        className="customLink"
+                        target="_blank"
+                        href={`https://www.imdb.com/title/${MainStore.selectedMovie?.IMBDId}`}
+                      >
+                        Click here for IMBD
+                      </a>
+                    </div>
+
+                    <div style={{ margin: "12px" }}>Similar films</div>
+                  </div>
+                  <h2>Crew:</h2>
+                  {MainStore.selectedMovie.crew?.map((c) => {
                     return (
-                      <CustomChip
-                        label={`${genre.name}`}
-                        variant="outlined"
-                        colorIndex={colorIndex}
-                      />
+                      <div style={{ padding: "6px 4px" }}>
+                        {c.person.name} <i>({c.role.job})</i>
+                      </div>
                     );
                   })}
                 </Grid>
-
-                <Grid xs={4}>
-                  Cast
-                  <ul>
-                    {MainStore.selectedMovie.cast?.map((c) => {
-                      return (
-                        <li>
-                          {c.person.name} - Character: {c.role.character}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  Crew
-                  <ul>
-                    {MainStore.selectedMovie.crew?.map((c) => {
-                      return (
-                        <li>
-                          {c.person.name} - Dep: {c.role.department} Job:{" "}
-                          {c.role.job}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </Grid>
               </Grid>
-              <Grid container item spacing={2}>
-                <Grid xs={6}>
-                  <div>
-                    Wiki:{" "}
-                    <a
-                      target="_blank"
-                      href={`https://en.wikipedia.org/wiki/${MainStore.selectedMovie?.name}`}
-                    >
-                      {MainStore.selectedMovie?.name}
-                    </a>
-                  </div>
-                  {MainStore.selectedMovie?.wikipediaOverview}
-                </Grid>
-                <Grid xs={6}>
-                  <div>
-                    IMBD:{" "}
-                    <a
-                      target="_blank"
-                      href={`https://www.imdb.com/title/${MainStore.selectedMovie?.IMBDId}`}
-                    >
-                      {MainStore.selectedMovie?.name}
-                    </a>
-                  </div>
 
+              <Grid container item spacing={2}>
+                <Grid xs={12}>
+                  <h2>Overview</h2>
                   <div>{MainStore.selectedMovie?.overview}</div>
                 </Grid>
               </Grid>
-              <Grid container item spacing={2}></Grid>
+
+              <Grid container item spacing={2}>
+                <Grid xs={12}>
+                  <h2>Overview from Wikipedia</h2>
+                  {MainStore.selectedMovie?.wikipediaOverview}
+                </Grid>
+              </Grid>
             </Grid>
           </Box>
         </DialogContent>

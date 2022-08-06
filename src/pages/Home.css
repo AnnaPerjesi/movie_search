@@ -22,3 +22,16 @@
 .movieTitle {
   cursor: pointer;
 }
+
+.moviePoster {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.customLink {
+  color: #6161d9;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+}
