@@ -13,6 +13,7 @@ export interface IMovie {
   crew: ICrew[];
   wikipediaOverview: string;
   poster: IPoster;
+  IMBDId: string;
 }
 
 interface IPoster {
@@ -21,6 +22,7 @@ interface IPoster {
 
 interface ICrew {
   person: IPerson;
+  role: IRole;
 }
 
 interface IGenre {
@@ -95,6 +97,11 @@ class MainStore {
 
           this.selectedMovie.wikipediaOverview =
             yield WikipediaService.getMovieOverview(this.selectedMovie.name);
+
+          this.selectedMovie.IMBDId = yield WikipediaService.getIMBDId(
+            this.selectedMoveId
+          );
+
           console.log("getMovie", toJS(this.selectedMovie));
         }
         this.isLoading = false;

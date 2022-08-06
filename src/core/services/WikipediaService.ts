@@ -22,6 +22,18 @@ class WikipediaService {
 
     return "No wikipedia is found";
   }
+
+  async getIMBDId(movieId: string) {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/external_ids?api_key=59e0af677b78b2af96e95038dfa5bdee`
+    );
+    const data = await response.json();
+    if (data) {
+      return data.imdb_id;
+    }
+
+    return "-1";
+  }
 }
 
 export default new WikipediaService();
