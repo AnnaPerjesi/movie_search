@@ -18,12 +18,7 @@ class MainService {
                       name
                       overview
                       releaseDate
-                      cast {
-                        id
-                        person {
-                          name
-                        }
-                      }
+                      score
                     }
                   }
                 `,
@@ -35,6 +30,64 @@ class MainService {
 
     return data;
   };
+
+  getMoovieById = async (movieId: string) => {
+    const data = await client
+      .query({
+        query: gql`
+                  query getMovie {
+                    movie(id: "${movieId}") {
+                      id
+                      name
+                      overview
+                      releaseDate
+                      score
+                      poster {
+                        small
+                      }
+                      genres {
+                        name
+                      }
+                      cast(limit: 5) {
+                        id
+                        person {
+                          name
+                        }
+                        role {
+                          ... on Cast {
+                            character
+                          }
+                        }
+                      }
+                      crew(limit: 5) {
+                        id
+                        person {
+                          name
+                        }
+                        role {
+                          ... on Crew {
+                            job
+                            department
+                          }
+                        }
+                      }
+                    }
+                  }
+                `,
+      })
+      .then((result) => {
+        return result.data.movie;
+      });
+
+    return data;
+  };
 }
+
+// cast {
+//   id
+//   person {
+//     name
+//   }
+// }
 
 export default MainService;

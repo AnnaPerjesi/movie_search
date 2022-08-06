@@ -6,9 +6,11 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Paper,
 } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import React from "react";
+import MovieDialog from "../components/movie-dialog/MovieDialog";
 import Movies from "../components/movies/Movies";
 import SearchBox from "../components/search-box/SearchBox";
 import MainStore, { IMovie } from "../core/stores/MainStore";
@@ -33,42 +35,32 @@ class HomePage extends React.Component<IProps> {
       );
     return (
       <div className="homePage">
+        <MovieDialog />
+
         <div className="header">
           <SearchBox />
         </div>
 
-        <div>
-          <Movies />
-          <Dialog
-            open={MainStore.getSelectedMovie != null}
-            onClose={() => MainStore.setSelectedMovieId(null)}
-            className="movieDialog"
-          >
-            <DialogTitle sx={{ m: 0, p: 2 }}>
-              <div>{MainStore.getSelectedMovie?.name}</div>
-              <IconButton
-                aria-label="close"
-                onClick={() => MainStore.setSelectedMovieId(null)}
-                sx={{
-                  position: "absolute",
-                  right: 8,
-                  top: 8,
-                  color: (theme) => theme.palette.grey[500],
-                }}
-              >
-                <Close />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent dividers>
-              {MainStore.getSelectedMovie?.overview}
-            </DialogContent>
-          </Dialog>
-        </div>
+        <Paper
+          sx={{
+            p: 2,
+            margin: "auto",
+            maxWidth: "80%",
+            flexGrow: 1,
+            top: 34,
+            backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+          }}
+        >
+          <div>
+            <Movies />
+          </div>
 
-        <h4>
-          This product uses the TMDB API but is not endorsed or certified by
-          TMDB
-        </h4>
+          <h4>
+            This product uses the TMDB API but is not endorsed or certified by
+            TMDB
+          </h4>
+        </Paper>
       </div>
     );
   }
