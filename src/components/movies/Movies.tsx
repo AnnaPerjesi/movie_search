@@ -1,32 +1,13 @@
 import { inject, observer } from "mobx-react";
 import React from "react";
-import MainStore, { IMovie } from "../../core/stores/MainStore";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import MainStore from "../../core/stores/MainStore";
+import { DataGrid } from "@mui/x-data-grid";
 import { toJS } from "mobx";
+import { columns } from "../../core/constans/GridColumns";
 
 interface IProps {
   MainStore?: MainStore;
 }
-
-const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 70 },
-  {
-    field: "name",
-    headerName: "Movie title",
-    width: 500,
-    cellClassName: "movieTitle",
-  },
-  { field: "score", headerName: "Score", width: 70 },
-
-  {
-    field: "releaseDate",
-    headerName: "Released at",
-    width: 500,
-    valueGetter(params) {
-      return new Date(params.value).toLocaleDateString("en-GB");
-    },
-  },
-];
 
 class Movies extends React.Component<IProps> {
   render() {

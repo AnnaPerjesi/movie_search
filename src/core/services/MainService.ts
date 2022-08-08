@@ -19,6 +19,9 @@ class MainService {
                       overview
                       releaseDate
                       score
+                      genres {
+                        name
+                      }
                     }
                   }
                 `,

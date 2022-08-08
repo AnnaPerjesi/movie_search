@@ -13,7 +13,7 @@ import React from "react";
 import MovieDialog from "../components/movie-dialog/MovieDialog";
 import Movies from "../components/movies/Movies";
 import SearchBox from "../components/search-box/SearchBox";
-import MainStore, { IMovie } from "../core/stores/MainStore";
+import MainStore from "../core/stores/MainStore";
 import "./Home.css";
 
 interface IProps {
