@@ -1,15 +1,7 @@
-import { Close } from "@mui/icons-material";
-import {
-  Backdrop,
-  CircularProgress,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Paper,
-} from "@mui/material";
+import { Backdrop, CircularProgress, Paper } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import React from "react";
+import Footer from "../components/footer/Footer";
 import MovieDialog from "../components/movie-dialog/MovieDialog";
 import Movies from "../components/movies/Movies";
 import SearchBox from "../components/search-box/SearchBox";
@@ -48,19 +40,14 @@ class HomePage extends React.Component<IProps> {
             maxWidth: "80%",
             flexGrow: 1,
             top: 34,
-            backgroundColor: (theme) =>
-              theme.palette.mode === "dark" ? "#1A2027" : "#fff",
           }}
         >
           <div>
             <Movies />
           </div>
-
-          <h4>
-            This product uses the TMDB API but is not endorsed or certified by
-            TMDB
-          </h4>
         </Paper>
+
+        <Footer />
       </div>
     );
   }

@@ -32,3 +32,16 @@
 .personList {
   padding: 6px 4px;
 }
+
+.footer {
+  background-color: rgb(52 86 120 / 93%);
+  color: white;
+  text-align: left;
+  padding: 12px;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 40px;
+  width: 100%;
+  display: flex;
+}

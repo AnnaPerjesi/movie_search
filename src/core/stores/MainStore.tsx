@@ -24,11 +24,13 @@ class MainStore {
     this.searchMovies();
   }
 
+  /**
+   * get movies from https://tmdb.sandbox.zoosh.ie/dev by query
+   */
   *searchMovies(): any {
     try {
       this.isLoading = true;
       const data = yield this.MainService.serachMovie(this.query);
-      console.log("data", toJS(data));
       if (data) {
         this.movies = data.searchMovies.map((movie: any) => {
           return {
@@ -44,6 +46,10 @@ class MainStore {
     }
   }
 
+  /**
+   * get movie by Id
+   * After we have the movie we havet to get data from wikipedia and the IMBD id of the film
+   */
   *getMovie(): any {
     if (!this.selectedMoveId) {
       this.selectedMovie = null;
@@ -60,8 +66,6 @@ class MainStore {
           this.selectedMovie.IMBDId = yield WikipediaService.getIMBDId(
             this.selectedMoveId
           );
-
-          console.log("getMovie", toJS(this.selectedMovie));
         }
         this.isLoading = false;
       } catch (error) {
@@ -72,25 +76,21 @@ class MainStore {
     }
   }
 
+  /**
+   * change the filter text of search field
+   * @param value
+   */
   onChangeInput(value: string) {
-    console.log(value);
     this.query = value;
   }
 
+  /**
+   * set selected film id by clicking on movie title's cell
+   * @param id
+   */
   setSelectedMovieId(id: string) {
     this.selectedMoveId = id;
     this.getMovie();
-  }
-
-  get getSelectedMovie(): IMovie {
-    if (this.selectedMoveId) {
-      console.log(
-        "movie",
-        this.movies.find((movie) => movie.id === this.selectedMoveId)
-      );
-      return this.movies.find((movie) => movie.id === this.selectedMoveId);
-    }
-    return null;
   }
 }
 export default MainStore;
