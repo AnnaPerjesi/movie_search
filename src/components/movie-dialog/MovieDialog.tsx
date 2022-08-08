@@ -6,14 +6,14 @@ import {
   DialogContent,
   Box,
   Grid,
-  Chip,
 } from "@mui/material";
 import { inject, observer } from "mobx-react";
 import React from "react";
-import CustomChip from "../../controls/custom-chip/CustomChip";
 import MainStore from "../../core/stores/MainStore";
 import Cast from "./cast/Cast";
+import Crew from "./crew/Crew";
 import Genres from "./genres/Genres";
+import Links from "./links/Links";
 
 interface IProps {
   MainStore?: MainStore;
@@ -67,37 +67,9 @@ class MovieDialog extends React.Component<IProps> {
                 </Grid>
 
                 <Grid xs={4}>
-                  <div style={{ display: "flex" }}>
-                    <div style={{ marginRight: "12px", marginTop: "12px" }}>
-                      <a
-                        className="customLink"
-                        target="_blank"
-                        href={`https://en.wikipedia.org/wiki/${MainStore.selectedMovie?.name}`}
-                      >
-                        Click here for Wikipedia
-                      </a>
-                    </div>
+                  <Links />
 
-                    <div style={{ margin: "12px" }}>
-                      <a
-                        className="customLink"
-                        target="_blank"
-                        href={`https://www.imdb.com/title/${MainStore.selectedMovie?.IMBDId}`}
-                      >
-                        Click here for IMBD
-                      </a>
-                    </div>
-
-                    <div style={{ margin: "12px" }}>Similar films</div>
-                  </div>
-                  <h2>Crew:</h2>
-                  {MainStore.selectedMovie.crew?.map((c) => {
-                    return (
-                      <div style={{ padding: "6px 4px" }}>
-                        {c.person.name} <i>({c.role.job})</i>
-                      </div>
-                    );
-                  })}
+                  <Crew />
                 </Grid>
               </Grid>
 

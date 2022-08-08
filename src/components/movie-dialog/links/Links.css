@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  margin-top: 16px;
+}
+
+.linkContainer {
+  margin-right: 12px;
+}
+
+.customLink {
+  color: #6161d9;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+}

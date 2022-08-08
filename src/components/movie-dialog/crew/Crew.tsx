@@ -6,17 +6,17 @@ interface IProps {
   MainStore?: MainStore;
 }
 
-class Cast extends React.Component<IProps> {
+class Crew extends React.Component<IProps> {
   render() {
     const { MainStore } = this.props;
 
     return (
       <React.Fragment>
-        <h2>Cast:</h2>
-        {MainStore.selectedMovie.cast?.map((c) => {
+        <h2>Crew:</h2>
+        {MainStore.selectedMovie.crew?.map((c) => {
           return (
             <div className="personList">
-              <span>{c.person.name}</span> as <i>{c.role.character}</i>
+              {c.person.name} <i>({c.role.job})</i>
             </div>
           );
         })}
@@ -25,4 +25,4 @@ class Cast extends React.Component<IProps> {
   }
 }
 
-export default inject("MainStore")(observer(Cast));
+export default inject("MainStore")(observer(Crew));
